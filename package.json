@@ -1,0 +1,23 @@
+{
+  "name": "react-native-hamburger",
+  "version": "1.0.0",
+  "description": "Hamburger menu for react-native!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sankhadeeproy007/react-native-hamburger.git"
+  },
+  "keywords": [
+    "react-native",
+    "hamburger"
+  ],
+  "author": "Sankhadeep Roy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sankhadeeproy007/react-native-hamburger/issues"
+  },
+  "homepage": "https://github.com/sankhadeeproy007/react-native-hamburger#readme"
+}
