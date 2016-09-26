@@ -17,9 +17,6 @@ export default class Hamburger extends Component {
 
     spinCross() {
         if (!this.state.active) {
-            this.setState({
-                active: true
-            });
             Animated.spring(this.containerAnim, {
                 toValue: 1
             }).start();
@@ -61,9 +58,6 @@ export default class Hamburger extends Component {
 
     cross() {
         if (!this.state.active) {
-            this.setState({
-                active: true
-            });
             Animated.spring(this.topBar, {
                 toValue: .9
             }).start();
@@ -100,9 +94,6 @@ export default class Hamburger extends Component {
 
     spinArrow() {
         if (!this.state.active) {
-            this.setState({
-                active: true
-            });
             Animated.spring(this.containerAnim, {
                 toValue: 1
             }).start();
@@ -125,9 +116,6 @@ export default class Hamburger extends Component {
                 toValue: -2
             }).start();
         } else {
-            this.setState({
-                active: false
-            });
             Animated.spring(this.containerAnim, {
                 toValue: 0
             }).start();
@@ -154,9 +142,6 @@ export default class Hamburger extends Component {
 
     arrow() {
         if (!this.state.active) {
-            this.setState({
-                active: true
-            });
             Animated.spring(this.topBar, {
                 toValue: 1
             }).start();
@@ -202,6 +187,11 @@ export default class Hamburger extends Component {
 
 
     _animate() {
+        setTimeout(()=> {
+            this.setState({
+                active: this.props.active
+            });
+        }, 0);
         const { props: { type } } = this;
         type=="spinArrow" ? this.spinArrow() :
         type=="arrow" ? this.arrow() :
@@ -210,9 +200,49 @@ export default class Hamburger extends Component {
 
 
     }
+    componentDidMount() {
+        setTimeout(()=> {
+            this.setState({
+                active: this.props.active
+            });
+        }, 0);
+    }
     render() {
 
-        const { props: { color } } = this;
+        const { props: { color, type } } = this;
+
+        if (this.props.active) {
+            if (type=="spinArrow") {
+                this.containerAnim = this.containerAnim || new Animated.Value(1);
+                this.topBar = this.topBar || new Animated.Value(1);
+                this.bottomBar = this.bottomBar || new Animated.Value(1);
+                this.width = this.width || new Animated.Value(14);
+                this.marginLeft = this.marginLeft || new Animated.Value(-13);
+                this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(2);
+                this.topBarMargin = this.topBarMargin || new Animated.Value(-2);
+            }
+            else if (type=="arrow") {
+                this.topBar = this.topBar || new Animated.Value(1);
+                this.bottomBar = this.bottomBar || new Animated.Value(1);
+                this.width = this.width || new Animated.Value(14);
+                this.marginLeft = this.marginLeft || new Animated.Value(-13);
+                this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(2);
+                this.topBarMargin = this.topBarMargin || new Animated.Value(-2);
+            }
+            else if (type=="spinCross") {
+                this.containerAnim = this.containerAnim || new Animated.Value(1);
+                this.topBar = this.topBar || new Animated.Value(0.9);
+                this.bottomBar = this.bottomBar || new Animated.Value(0.9);
+                this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(-10);
+                this.middleBarOpacity = this.middleBarOpacity || new Animated.Value(0);
+            }
+            else {
+                this.topBar = this.topBar || new Animated.Value(0.9);
+                this.bottomBar = this.bottomBar || new Animated.Value(0.9);
+                this.bottomBarMargin = this.bottomBarMargin || new Animated.Value(-10);
+                this.middleBarOpacity = this.middleBarOpacity || new Animated.Value(0);
+            }
+        }
 
         this.containerAnim = this.containerAnim || new Animated.Value(0);
         this.topBar = this.topBar || new Animated.Value(0);
@@ -225,7 +255,7 @@ export default class Hamburger extends Component {
 
         return (
             <TouchableWithoutFeedback
-                onPress={()=> {this._animate(), this.props.onPress ? this.props.onPress() : undefined}}>
+                onPress={()=> {this.props.onPress ? this.props.onPress() : undefined, this._animate()}}>
                 <Animated.View style={{
                     width: 35,
                     justifyContent: 'center',
