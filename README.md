@@ -1,5 +1,5 @@
 # react-native-hamburger
-Hamburger menu for react-native!
+Animated fully configurable hamburger menu for react-native!
 
 ``` npm install react-native-hamburger --save ```
 
