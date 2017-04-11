@@ -200,6 +200,11 @@ export default class Hamburger extends Component {
 
 
     }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.active !== this.state.active) {
+            this._animate();
+        }
+    }
     componentDidMount() {
         setTimeout(()=> {
             this.setState({
