@@ -186,12 +186,8 @@ export default class Hamburger extends Component {
     }
 
 
-    _animate() {
-        setTimeout(()=> {
-            this.setState({
-                active: this.props.active
-            });
-        }, 0);
+    _animate(active) {
+        this.setState({ active });
         const { props: { type } } = this;
         type=="spinArrow" ? this.spinArrow() :
         type=="arrow" ? this.arrow() :
@@ -202,7 +198,7 @@ export default class Hamburger extends Component {
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.active !== this.state.active) {
-            this._animate();
+            this._animate(nextProps.active);
         }
     }
     componentDidMount() {
@@ -260,7 +256,7 @@ export default class Hamburger extends Component {
 
         return (
             <TouchableWithoutFeedback
-                onPress={()=> {this.props.onPress ? this.props.onPress() : undefined, this._animate()}}>
+                onPress={()=> {this.props.onPress ? this.props.onPress() : undefined}}>
                 <Animated.View style={{
                     width: 35,
                     justifyContent: 'center',
